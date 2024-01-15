@@ -9,7 +9,7 @@ For this project, we expect you to look at this concept:
 **Read or watch:**
 
 * [Hack the Virtual Memory: malloc, the heap & the program break](https://blog.holbertonschool.com/hack-the-virtual-memory-malloc-the-heap-the-program-break/)
-* Everything you need to know to write your own malloc
+* [Everything you need to know to write your own malloc](./Automatic_allocation.md)
 
 **man or help:**
 

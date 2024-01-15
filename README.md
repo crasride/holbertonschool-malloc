@@ -3,7 +3,7 @@
 ### Concepts
 For this project, we expect you to look at this concept:
 
-* [[EYNTK] Writing your own dynamic allocation library](../holbertonschool-malloc/EYNTK/README.md)
+* [[EYNTK] Writing your own dynamic allocation library](./EYNTK/README.md)
 
 ## Resources
 **Read or watch:**

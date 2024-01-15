@@ -119,3 +119,13 @@ Write you own free function that frees a memory space
 * GitHub repository: `holbertonschool-malloc`
 * File: `free.c`, `malloc.c`, `malloc.h`
 
+
+### Authors
+
+<sub>_You can contact me_ 📩
+* Guenoel Andrieux [Github](https://github.com/guenoel)
+
+<sub>_You can contact me_ 📩
+* Jose Fernandez Armas [Github](https://github.com/crasride)
+
+

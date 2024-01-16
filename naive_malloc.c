@@ -1,8 +1,6 @@
 #include "malloc.h"
 
-
 #define ALIGN(size) (((size) + 7) / 8 * 8)
-#define ALIGN_PTR(ptr) ((void *)(((size_t)(ptr) + 7) / 8 * 8))
 
 void *naive_malloc(size_t size)
 {
@@ -10,10 +8,8 @@ void *naive_malloc(size_t size)
 	void *memory;
 	static size_t last_break;
 
-	/* Align size */
 	size = ALIGN(size) + sizeof(size_t);
 
-	/* If last break is NULL or not enough space, get more space */
 	if (last_break == 0 || (size_t)sbrk(0) - last_break < size)
 	{
 		size_t page_size = getpagesize();
@@ -22,16 +18,16 @@ void *naive_malloc(size_t size)
 		if ((size_t)last_break % page_size + sizeof(size_t) > page_size - size)
 		{
 			sbrk(page_size - (break_size - (size_t)sbrk(0)) + size);
-			last_break = (size_t)sbrk(0) - size;
+			last_break = ((size_t)sbrk(0) - size) + ((size_t)sbrk(0) % 8);
 		}
 		else
 		{
 			sbrk(size);
-			last_break = (size_t)sbrk(0) - size;
+			last_break = ((size_t)sbrk(0) - size) + ((size_t)sbrk(0) % 8);
 		}
 	}
 
-	memory = ALIGN_PTR((void *)last_break);
+	memory = (void *)last_break;
 	last_break = (size_t)((char *)memory + size);
 
 	chunk = (size_t *)memory;
@@ -39,5 +35,6 @@ void *naive_malloc(size_t size)
 
 	return ((void *)(chunk + 1));
 }
+
 
 

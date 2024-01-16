@@ -7,6 +7,7 @@ void *naive_malloc(size_t size)
 	static void *block_zero = NULL;
 	static size_t chunks = 0;
 	size_t i = 0;
+	size_t unused_block_size = 0;
 
 	if (!block_zero)
 	{
@@ -28,7 +29,7 @@ void *naive_malloc(size_t size)
 	}
 
 
-	size_t unused_block_size = chunks ? *((size_t *)block_ptr) : (size_t)getpagesize();
+	unused_block_size = chunks ? *((size_t *)block_ptr) : (size_t)getpagesize();
 
 	void *next_block = (char *)block_ptr + std_block_size;
 

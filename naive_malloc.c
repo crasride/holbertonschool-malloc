@@ -4,6 +4,12 @@
 	(((size) + sizeof(size_t) - 1) / sizeof(size_t) * sizeof(size_t))
 
 
+/**
+* find_next_block - Find the next available block
+* @block_ptr: Pointer to the initial block of memory
+* @chunks: Number of allocated chunks
+* Return: Pointer to the next available block
+*/
 static void *find_next_block(void *block_ptr, size_t chunks)
 {
 	size_t i;

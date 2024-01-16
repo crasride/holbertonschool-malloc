@@ -6,6 +6,11 @@
 static void *last_break;
 static size_t chunks;
 
+/**
+* _malloc - allocates memory
+* @size: size of memory to allocate
+* Return: pointer to allocated memory
+*/
 void *_malloc(size_t size)
 {
 	size_t *chunk;

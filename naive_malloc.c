@@ -6,6 +6,7 @@ void *naive_malloc(size_t size)
 {
 	static void *block_zero = NULL;
 	static size_t chunks = 0;
+	size_t i = 0;
 
 	if (!block_zero)
 	{
@@ -20,7 +21,8 @@ void *naive_malloc(size_t size)
 	size_t std_block_size = ALIGN(size) + sizeof(size_t);
 	void *block_ptr = block_zero;
 
-	for (size_t i = 0; i < chunks; i++) {
+	for (i = 0; i < chunks; i++)
+	{
 		size_t block_size = *((size_t *)block_ptr);
 		block_ptr = (char *)block_ptr + block_size;
 	}

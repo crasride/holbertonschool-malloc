@@ -14,5 +14,6 @@ void *naive_malloc(size_t size);
 void *_malloc(size_t size);
 
 /* Functions Task 2 */
+void _free(void *ptr);
 
 #endif /* MALLOC_H */

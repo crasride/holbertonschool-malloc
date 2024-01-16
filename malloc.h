@@ -11,6 +11,7 @@
 void *naive_malloc(size_t size);
 
 /* Functions Task 1 */
+void *_malloc(size_t size);
 
 /* Functions Task 2 */
 

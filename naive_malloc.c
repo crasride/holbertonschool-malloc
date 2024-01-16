@@ -1,38 +1,52 @@
 #include "malloc.h"
 
-#define ALIGN(size) (((size) + 7) / 8 * 8)
-#define ALIGN_PTR(ptr) ((void *)(((size_t)(ptr) + 7) / 8 * 8))
+#define ALIGN(size) (((size) + sizeof(size_t) - 1) / sizeof(size_t) * sizeof(size_t))
 
-void *naive_malloc(size_t size) {
-	size_t *chunk;
-	void *memory;
-	static size_t last_break;
+void *naive_malloc(size_t size)
+{
+	static void *block_zero = NULL;
+	static size_t chunks = 0;
 
-	size = ALIGN(size) + sizeof(size_t);
-
-	if (last_break == 0 || (size_t)sbrk(0) - last_break < size)
+	if (!block_zero)
 	{
-		size_t page_size = getpagesize();
-		size_t break_size = ((size_t)sbrk(0) + page_size - 1) / page_size * page_size;
-
-		if ((size_t)last_break % page_size + sizeof(size_t) > page_size - size)
+		block_zero = sbrk(getpagesize());
+		if (block_zero == (void *)-1)
 		{
-			sbrk(page_size - (break_size - (size_t)sbrk(0)) + size);
-			last_break = ((size_t)sbrk(0) - size + 7) / 8 * 8;
-		} else
-		{
-			sbrk(size);
-			last_break = ((size_t)sbrk(0) - size + 7) / 8 * 8;
+			perror("sbrk error");
+			return NULL;
 		}
 	}
 
-	memory = ALIGN_PTR((void *)last_break);
-	last_break = (size_t)((char *)memory + size);
+	size_t std_block_size = ALIGN(size) + sizeof(size_t);
+	void *block_ptr = block_zero;
 
-	chunk = (size_t *)memory;
-	*chunk = size;
+	for (size_t i = 0; i < chunks; i++) {
+		size_t block_size = *((size_t *)block_ptr);
+		block_ptr = (char *)block_ptr + block_size;
+	}
 
-	return ((void *)(chunk + 1));
+
+	size_t unused_block_size = chunks ? *((size_t *)block_ptr) : (size_t)getpagesize();
+
+	void *next_block = (char *)block_ptr + std_block_size;
+
+
+	while (unused_block_size < std_block_size + sizeof(size_t) * 2)
+	{
+		if (sbrk(getpagesize()) == (void *)-1)
+		{
+			perror("sbrk error");
+			return NULL;
+		}
+		unused_block_size += getpagesize();
+	}
+
+	*((size_t *)next_block) = unused_block_size - std_block_size;
+	*((size_t *)block_ptr) = std_block_size;
+
+	chunks++;
+
+	return (char *)block_ptr + sizeof(size_t);
 }
 
 

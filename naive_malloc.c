@@ -6,7 +6,7 @@ void *naive_malloc(size_t size)
 	size_t i;
 	static size_t heap_size;
 	static size_t used_space;
-	static void *next_chunk;
+	static size_t *next_chunk;
 	size_t size_in_mem = 0;
 	size_t size_page = (size_t)getpagesize();
 
@@ -18,7 +18,7 @@ void *naive_malloc(size_t size)
 		;
 	if (!next_chunk)
 		next_chunk = sbrk(0);
-	printf("next_chunk: %p\n", next_chunk);
+	printf("next_chunk: %p\n", (void *)next_chunk);
 	/* check if enough space in heap */
 	if (heap_size < (used_space + size_in_mem + sizeof(size_t)))
 	{

@@ -10,6 +10,7 @@ void *naive_malloc(size_t size)
 	size_t unused_block_size = 0;
 	size_t std_block_size = ALIGN(size) + sizeof(size_t);
 	void *next_block = NULL;
+	void *block_ptr = NULL;
 
 	if (!block_zero)
 	{
@@ -21,7 +22,7 @@ void *naive_malloc(size_t size)
 		}
 	}
 
-	void *block_ptr = block_zero;
+	block_ptr = block_zero;
 
 	for (i = 0; i < chunks; i++)
 	{

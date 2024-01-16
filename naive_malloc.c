@@ -8,33 +8,38 @@ void *naive_malloc(size_t size)
 	static size_t used_space;
 	static size_t *next_chunk;
 	size_t size_in_mem = 0;
-	size_t size_page = (size_t)getpagesize();
+	size_t page_size = (size_t)getpagesize();
 
-	printf("size_t size: %lu\n", sizeof(size_t));
-	printf("size_page: %lu\n", size_page);
-	/* calculate real size in memory */
-	for (size_in_mem = 0; size_in_mem < (size + sizeof(size_t));
+	/* rounding by multiple of size_t which is bigger than size */
+	for (size_in_mem = 0; size_in_mem < size;
 								size_in_mem += sizeof(size_t))
 		;
+	/* add header size */
+	size_in_mem += sizeof(size_t);
+	/* for first use of this function */
 	if (!next_chunk)
 		next_chunk = sbrk(0);
-	printf("next_chunk: %p\n", (void *)next_chunk);
 	/* check if enough space in heap */
 	if (heap_size < (used_space + size_in_mem + sizeof(size_t)))
 	{
+		/* increase heap by adding multiples of page_size (4096 bytes) */
 		for (i = 0; ((size_in_mem - (heap_size - used_space))
 					+ sizeof(size_t)) > i;
-				i += size_page)
+				i += page_size)
 			;
-		printf("sbrk(%lu)\n", i);
+		/* printf("sbrk(%lu)\n", i); */
 		if (sbrk(i) == (void *) -1)
 			return (NULL);
-		heap_size += i; /* - size_page ? */
+		heap_size += i;
 	}
-
+	/* update used space */
 	used_space += size_in_mem;
+	/* pass memory address of current chunk to header */
 	header = next_chunk;
-	*header = size_in_mem; /* store size in the header */
-	next_chunk += size_in_mem;
-	return ((void *)(next_chunk + 1));
+	/* store size in the header */
+	*header = size_in_mem;
+	/* change memory address of pointer next_chunk */
+	next_chunk += (size_in_mem / sizeof(size_t));
+	/* return pointer to start of the future data */
+	return ((void *)(header + 1)); /* +1 (byte) to skip header */
 }

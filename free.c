@@ -9,5 +9,7 @@ void _free(void *ptr)
 
 	chunk_header = (size_t *)ptr - 1;
 
-	*chunk_header = *chunk_header & ~1;
+	/* *chunk_header = *chunk_header & ~1 ;*/
+	*chunk_header |= 1;
+
 }

@@ -15,38 +15,28 @@ void *_malloc(size_t size)
 {
 	size_t *chunk;
 	void *memory;
-	size_t unused_space;
+	size_t aligned_size;
 
-	size = ALIGN(size) + sizeof(size_t);
+	size = ALIGN(size + sizeof(size_t));
 
 	if (!last_break || (size_t)sbrk(0) - (size_t)last_break < size)
 	{
-		size_t page_size = getpagesize();
-		size_t break_size = ((size_t)sbrk(0) + page_size - 1)
-									/ page_size * page_size;
-
-		if ((size_t)last_break % page_size + sizeof(size_t) > page_size - size)
-		{
-			sbrk(page_size - (break_size - (size_t)sbrk(0)) + size);
-			last_break = (void *)(((size_t)sbrk(0) - size + sizeof(size_t) - 1)
-									/ sizeof(size_t) * sizeof(size_t));
-		}
-		else
-		{
-			sbrk(size);
-			last_break = (void *)((size_t)sbrk(0) - size);
-		}
+		sbrk(size);
+		last_break = (void *)((size_t)sbrk(0) - size);
 	}
 
-	memory = last_break;
-	unused_space = (size_t)sbrk(0) - (size_t)last_break;
-	last_break = (void *)((char *)memory + size);
-	chunk = (size_t *)memory;
-	*chunk = size;
-	if (unused_space > size + sizeof(size_t))
+	memory = (void *)(((size_t)last_break + sizeof(size_t) - 1) / sizeof(size_t) * sizeof(size_t));
+	aligned_size = (size_t)sbrk(0) - (size_t)memory;
+
+	if (aligned_size > size)
 	{
-		*((size_t *)((char *)memory + size)) = unused_space - size;
+		*((size_t *)memory) = aligned_size - size;
 		chunks++;
+		last_break = (void *)((char *)memory + size);
+		printf("last_break: %p, unused_space: %zu\n", last_break, aligned_size - size);
+		printf("Comparando con el bloque liberado de tamaño: %zu\n", *((size_t *)memory));
 	}
+
+	chunk = (size_t *)memory;
 	return ((void *)(chunk + 1));
 }

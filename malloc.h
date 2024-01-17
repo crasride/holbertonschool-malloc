@@ -16,4 +16,7 @@ void *_malloc(size_t size);
 /* Functions Task 2 */
 void _free(void *ptr);
 
+/* Functions Task 3 */
+void *_calloc(size_t nmemb, size_t size);
+
 #endif /* MALLOC_H */

@@ -24,7 +24,7 @@ void *_realloc(void *ptr, size_t size)
 	else
 	{
 		chunk_header = (size_t *)ptr - 1;
-		old_size = *chunk_header & ~1;
+		old_size = *chunk_header | 1;
 
 		if (size <= old_size)
 		{

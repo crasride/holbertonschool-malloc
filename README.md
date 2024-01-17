@@ -22,13 +22,72 @@ For this project, we expect you to look at this concept:
 At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
 
 ### General
-* What is a program break
-* How to play with a program break in order to allocate memory dynamically
-* How the glibc `malloc` and `free` functions work
-* What is ASLR
-* What is memory alignment
-* What is a memory page
-* How to encapsulate the memory management in order to hide it from the user
+
+<details>
+<summary>What is a program break:</summary>
+</br>
+
+The program break refers to the end of the data segment in a process's virtual memory address space. It marks the boundary between the dynamically allocated memory (`heap`) and the statically allocated memory (`data segment`). The program break is managed by the operating system kernel and can be adjusted to allocate or deallocate memory dynamically.
+
+</details>
+
+<details>
+<summary>How to play with a program break in order to allocate memory dynamically:</summary>
+</br>
+
+The `brk()` and `sbrk()` system calls traditionally were used to manipulate the program break. 
+However, modern systems and programming languages often use higher-level memory allocation functions like `malloc()` and `free()`.
+
+
+</details>
+
+<details>
+<summary>How the glibc `malloc` and `free` functions work:</summary>
+</br>
+
+The GNU C Library `(glibc)` provides the `malloc()` and `free()` functions for dynamic memory allocation in C programs. `malloc()` is used to allocate a specified amount of memory on the heap, and `free()` is used to release previously allocated memory.
+
+</details>
+
+<details>
+<summary> What is ASLR:</summary>
+</br>
+
+`ASLR` is a security feature that randomizes the memory addresses used by system components and processes, making it more difficult for attackers to predict the location of specific code or data. This helps to mitigate certain types of `security vulnerabilities`, such as buffer overflows.
+
+</details>
+
+<details>
+<summary>What is memory alignment:</summary>
+</br>
+
+Memory alignment refers to the requirement that `data` be `stored` at particular memory `addresses`. It ensures that data is accessed `efficiently` by the `CPU`, especially when working with data types that require specific alignment, such as integers or floating-point numbers.
+
+</details>
+
+<details>
+<summary>What is a memory page:</summary>
+</br>
+
+A memory page is a `fixed-length` contiguous block of virtual or physical memory used by the operating system. Pages are typically 4 KB in `size`, but this `can vary`. Memory pages are the basic unit of memory management and are used for tasks like `virtual memory mapping` and paging.
+
+</details>
+
+<details>
+<summary>How to encapsulate the memory management in order to hide it from the user:</summary>
+</br>
+To hide memory management from the user, you can encapsulate it in `higher-level` abstractions. For example, you might define custom data `structures` or `classes` that handle memory allocation and deallocation internally. This encapsulation shields the user from the `low-level` details of memory management, providing a more user-friendly interface.
+
+</details>
+
+<details>
+<summary>Note:</summary>
+</br>
+
+It's important to note that direct manipulation of the program break and the use of `sbrk()` are considered outdated, and modern memory management is typically done using `higher-level` abstractions like `malloc()` and `free()`. Additionally, in languages like C++, you may use features like smart pointers and classes to handle memory management automatically, reducing the risk of `memory `leaks and improving code safety.
+
+</details>
+
 
 ### Requirements
 ### General

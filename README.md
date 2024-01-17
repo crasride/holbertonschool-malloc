@@ -8,7 +8,7 @@ For this project, we expect you to look at this concept:
 ## Resources
 **Read or watch:**
 
-* [Hack the Virtual Memory: malloc, the heap & the program break](https://blog.holbertonschool.com/hack-the-virtual-memory-malloc-the-heap-the-program-break/)
+* [Hack the Virtual Memory: malloc, the heap & the program break](https://github.com/alx-tools/Hack-The-Virtual-Memory/tree/master/03.%20malloc%2C%20the%20heap%20and%20the%20program%20break)
 * [Everything you need to know to write your own malloc](./Automatic_allocation.md)
 
 **man or help:**
@@ -134,7 +134,7 @@ It is not required that your _malloc, free, calloc and realloc behave exactly li
 
 ## [0. Naive malloc](./naive_malloc.c)
 
-Read carefully the [concept page for this project](https://intranet.hbtn.io/concepts/891)
+Read carefully the [concept page for this project](./Automatic_allocation.md)
 
 Build the naive malloc that is presented in the concept page.
 

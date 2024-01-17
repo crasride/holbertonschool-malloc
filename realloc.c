@@ -1,6 +1,11 @@
 #include "malloc.h"
 
-
+/**
+* _realloc - reallocates a memory block
+* @ptr: pointer to the memory previously allocated
+* @size: size of the memory to reallocate
+* Return: pointer to the reallocated memory
+*/
 void *_realloc(void *ptr, size_t size)
 {
 	size_t *chunk_header;
@@ -27,9 +32,7 @@ void *_realloc(void *ptr, size_t size)
 		}
 		else
 		{
-
 			new_ptr = _malloc(size);
-
 			if (new_ptr != NULL)
 			{
 				memcpy(new_ptr, ptr, old_size);

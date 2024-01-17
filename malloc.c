@@ -33,8 +33,8 @@ void *_malloc(size_t size)
 		*((size_t *)memory) = aligned_size - size;
 		chunks++;
 		last_break = (void *)((char *)memory + size);
-		printf("last_break: %p, unused_space: %zu\n", last_break, aligned_size - size);
-		printf("Comparando con el bloque liberado de tamaño: %zu\n", *((size_t *)memory));
+		/* printf("last_break: %p, unused_space: %zu\n", last_break, aligned_size - size);
+		printf("Comparando con el bloque liberado de tamaño: %zu\n", *((size_t *)memory)); */
 	}
 
 	chunk = (size_t *)memory;

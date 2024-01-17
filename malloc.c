@@ -25,16 +25,15 @@ void *_malloc(size_t size)
 		last_break = (void *)((size_t)sbrk(0) - size);
 	}
 
-	memory = (void *)(((size_t)last_break + sizeof(size_t) - 1) / sizeof(size_t) * sizeof(size_t));
+	memory = (void *)(((size_t)last_break + sizeof(size_t) - 1)
+											/ sizeof(size_t) * sizeof(size_t));
 	aligned_size = (size_t)sbrk(0) - (size_t)memory;
 
-	if (aligned_size > size)
+	if (aligned_size < size)
 	{
 		*((size_t *)memory) = aligned_size - size;
 		chunks++;
 		last_break = (void *)((char *)memory + size);
-		/* printf("last_break: %p, unused_space: %zu\n", last_break, aligned_size - size);
-		printf("Comparando con el bloque liberado de tamaño: %zu\n", *((size_t *)memory)); */
 	}
 
 	chunk = (size_t *)memory;

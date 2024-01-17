@@ -40,7 +40,7 @@ void *_malloc(size_t size)
 	aligned_size = (size_t)sbrk(0) - (size_t)memory;
 
 	/* If there is enough space, store the unused size in the block */
-	if (aligned_size >= size)
+	if (aligned_size < size)
 	{
 		/* Store the unused size in the block */
 		*((size_t *)memory) = aligned_size - size;

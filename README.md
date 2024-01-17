@@ -132,7 +132,7 @@ It is not required that your _malloc, free, calloc and realloc behave exactly li
 
 # Tasks
 
-## [0. Naive malloc]()
+## [0. Naive malloc](./naive_malloc.c)
 
 Read carefully the [concept page for this project](https://intranet.hbtn.io/concepts/891)
 
@@ -153,7 +153,7 @@ Build the naive malloc that is presented in the concept page.
 * File: `naive_malloc.c`, `malloc.h`
 
 
-## [1. malloc]()
+## [1. malloc](./malloc.c)
 
 Write you own `malloc` function that allocates space in the heap
 
@@ -166,7 +166,7 @@ Write you own `malloc` function that allocates space in the heap
 * GitHub repository: `holbertonschool-malloc`
 * File: `malloc.c`, `malloc.h`
 
-## [2. free]()
+## [2. free](./free.c)
 
 Write you own free function that frees a memory space
 
@@ -178,8 +178,34 @@ Write you own free function that frees a memory space
 * GitHub repository: `holbertonschool-malloc`
 * File: `free.c`, `malloc.c`, `malloc.h`
 
+## [3. calloc](./calloc.c)
 
-### Authors
+Write you own malloc function that allocates space in the heap
+
+* Prototype: `void *_calloc(size_t nmemb, size_t size);`
+* Where `nmemb` is the number of elements in the array, and s`size` is the size of each element
+* Your function must return a pointer to the allocated memory that is suitably aligned for any kind of variable
+
+### Repo:
+
+* GitHub repository: `holbertonschool-malloc`
+* File: `calloc.c`,`free.c`, `malloc.c`, `malloc.h`
+
+## [4. realloc](./realloc.c)
+
+Write you own malloc function that allocates space in the heap
+
+* Prototype: `void *_realloc(void *ptr, size_t size);`
+* Where `ptr` is a pointer to the memory space to resize, and `size` is the new size needed to be allocated for the user
+* Your function must return a pointer to the allocated memory that is suitably aligned for any kind of variable
+
+### Repo:
+
+* GitHub repository: `holbertonschool-malloc`
+* File: `realloc.c`,`free.c`, `malloc.c`, `malloc.h`
+
+
+## Authors
 
 <sub>_You can contact me_ 📩
 * Guenoel Andrieux [Github](https://github.com/guenoel)
